@@ -39,6 +39,22 @@
         <PackageReference Include="Microsoft.Extensions.Logging" />
         <PackageReference Include="System.DirectoryServices" />
     </ItemGroup>
+    <!-- Includable files -->
+    <ItemGroup>
+        <Content Include="appsettings.Development.json"
+            Condition="'$(Configuration)'=='Debug' And Exists('appsettings.Development.json')">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+        <Content Include="appsettings.Development.json" Condition="'$(Configuration)'=='Release'">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </Content>
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
+    </ItemGroup>
     <!-- Trimming options -->
     <ItemGroup>
         <TrimmerRootAssembly Include="SecuroTron.Agent" />
