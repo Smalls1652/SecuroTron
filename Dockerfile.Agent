@@ -1,0 +1,30 @@
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+
+ARG TARGETOS
+ARG TARGETARCH
+
+ENV CONTAINER_IMAGE_BUILD=true
+
+WORKDIR /app
+
+COPY ./global.json ./
+COPY ./nuget.config ./
+COPY ./SecuroTron.sln ./
+COPY ./Directory.Build.props ./
+COPY ./Directory.Packages.props ./
+COPY ./GitVersion.yml ./
+COPY ./src/Agent ./src/Agent
+COPY ./src/Hosting ./src/Hosting
+COPY ./src/Lib ./src/Lib
+
+RUN dotnet publish "./src/Agent" --configuration "Release" --os "${TARGETOS}" --arch "${TARGETARCH}" --self-contained
+
+FROM --platform=$TARGETPLATFORM mcr.microsoft.com/dotnet/runtime-deps:8.0-jammy-chiseled
+
+ARG TARGETOS
+ARG TARGETARCH
+
+COPY --from=build-env /app/artifacts/publish/Agent/release/SecuroTron.Agent /app/
+COPY --from=build-env /app/artifacts/publish/Agent/release/appsettings.json /app/
+
+ENTRYPOINT ["/app/SecuroTron.Agent"]
