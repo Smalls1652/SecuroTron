@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Core properties -->
+    <PropertyGroup>
+        <RootNamespace>SecuroTron.Agent</RootNamespace>
+        <AssemblyName>SecuroTron.Agent</AssemblyName>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <EnableConfigurationBindingGenerator>true</EnableConfigurationBindingGenerator>
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
+        <PublishTrimmed>true</PublishTrimmed>
+        <TrimMode>partial</TrimMode>
+        <TrimmerSingleWarn>false</TrimmerSingleWarn>
+        <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
+    </PropertyGroup>
+    <!-- Package properties -->
+    <PropertyGroup>
+        <PackageId>SecuroTron.Agent</PackageId>
+        <Description>
+            Agent for SecuroTron.
+        </Description>
+        <Authors>Timothy Small</Authors>
+        <Company>Smalls.Online</Company>
+        <Copyright>© 2024 Smalls.Online</Copyright>
+        <RepositoryUrl>https://github.com/Smalls1652/SecuroTron</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+    <!-- Dependencies -->
+    <ItemGroup>
+        <ProjectReference Include="..\Hosting\Hosting.csproj" />
+        <ProjectReference Include="..\Lib\Lib.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Microsoft.Extensions.Logging" />
+        <PackageReference Include="System.DirectoryServices" />
+    </ItemGroup>
+    <!-- Trimming options -->
+    <ItemGroup>
+        <TrimmerRootAssembly Include="SecuroTron.Agent" />
+        <TrimmableAssembly Include="Azure.Core" />
+        <TrimmableAssembly Include="Azure.Identity" />
+        <TrimmableAssembly Include="Microsoft.Extensions.DependencyInjection" />
+        <TrimmableAssembly Include="Microsoft.Extensions.Hosting" />
+        <TrimmableAssembly Include="Microsoft.Extensions.Logging" />
+    </ItemGroup>
+</Project>

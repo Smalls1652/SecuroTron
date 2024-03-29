@@ -1,0 +1,58 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow
+name: Build
+on:
+  push:
+    paths-ignore: 
+        - "README.md"
+        - "LICENSE"
+        - ".vscode/**"
+        - ".github/dependabot.yml"
+  pull_request:
+    paths-ignore: 
+        - "README.md"
+        - "LICENSE"
+        - ".vscode/**"
+        - ".github/dependabot.yml"
+  workflow_dispatch:
+
+permissions:
+  packages: read
+
+jobs:
+  build:
+    name: Build project
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        projectPath: [
+          "./src/Agent/",
+          "./src/Hosting/",
+          "./src/Lib/"
+        ]
+    env:
+      DOTNET_NOLOGO: true
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Install .NET tools
+        run: dotnet tool restore
+
+      - name: Update project files with gitversion
+        run: dotnet tool run dotnet-gitversion /updateprojectfiles
+
+      - name: Setup GitHub Packages source
+        run: dotnet nuget add source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json --name github --username ${{ github.repository_owner }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
+
+      - name: Build project
+        shell: pwsh
+        run: dotnet restore "${{ matrix.projectPath }}" ; dotnet build "${{ matrix.projectPath }}"

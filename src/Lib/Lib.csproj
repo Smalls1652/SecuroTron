@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <!-- Core properties -->
+    <PropertyGroup>
+        <RootNamespace>SecuroTron.Lib</RootNamespace>
+        <AssemblyName>SecuroTron.Lib</AssemblyName>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    </PropertyGroup>
+    <!-- Package properties -->
+    <PropertyGroup>
+        <PackageId>SecuroTron.Lib</PackageId>
+        <Description>
+            Class library for SecuroTron.
+        </Description>
+        <Authors>Timothy Small</Authors>
+        <Company>Smalls.Online</Company>
+        <Copyright>© 2024 Smalls.Online</Copyright>
+        <RepositoryUrl>https://github.com/Smalls1652/SecuroTron</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+    <!-- Dependencies -->
+    <ItemGroup>
+        <PackageReference Include="Azure.Identity" />
+        <PackageReference Include="Azure.Storage.Queues" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" PrivateAssets="all" />
+        <PackageReference Include="System.DirectoryServices.Protocols" />
+    </ItemGroup>
+</Project>
