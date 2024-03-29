@@ -140,7 +140,7 @@
         "publish",
         "${workspaceFolder}/${input:publishableProject}",
         "--configuration",
-        "Release",
+        "${input:dotnetConfiguration}",
         "--runtime",
         "${input:runtimeIdentifier}"
       ],
