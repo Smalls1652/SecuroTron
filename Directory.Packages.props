@@ -4,7 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Azure.Identity" Version="1.11.0" />
-    <PackageVersion Include="Azure.Storage.Queues" Version="12.17.1" />
+    <PackageVersion Include="Azure.Storage.Queues" Version="12.18.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
